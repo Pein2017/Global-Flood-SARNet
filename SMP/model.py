@@ -45,7 +45,7 @@ class FloodwaterSegmentationModel(nn.Module):
                                        encoder_weights=encoder_weights,
                                        in_channels=in_channels,
                                        classes=classes)
-        elif model_name == "PSNet":
+        elif model_name == "PSPNet":
             self.model = smp.PSPNet(encoder_name=encoder_name,
                                     encoder_weights=encoder_weights,
                                     in_channels=in_channels,

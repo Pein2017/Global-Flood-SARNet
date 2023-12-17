@@ -1,0 +1,241 @@
+Downloaded and cached PSPNet model with resnet101 encoder.
+Using NPU: npu:4 ...
+
+TRAIN_CROP_SIZE = 256
+TARGET_SIZE = 256
+NUM_WORKERS = 4
+PIN_MEMORY = False
+BATCH_SIZE = 16
+EPS = 1e-07
+EXPERIMENT_NAME = 'PSPNet-resnet101-b16'
+ENCODER_NAME = 'resnet101'
+MODEL_NAME = 'PSPNet'
+ENCODER_WEIGHTS = 'imagenet'
+IN_CHANNELS = 2
+CLASSES = 2
+PATIENCE = 6
+N_EPOCHS = 200
+LEARNING_RATE = 0.0001
+EARLY_STOP_THRESHOLD = 10
+EARLY_STOP_PATIENCE = 30
+
+-\|/Epoch: [1] Train - EpochT: 0.7 min, BatchT: 0.972s, DataT: 0.097s, Loss: 0.6056
+-\|/Epoch: [1] Val - EpochT: 1.3 min, Loss: 0.2989
+Global IOU: 0.6541
+Epoch: [2] Train - EpochT: 0.1 min, BatchT: 0.172s, DataT: 0.120s, Loss: 0.5147
+Epoch: [2] Val - EpochT: 0.2 min, Loss: 0.2550
+Global IOU: 0.6260
+Epoch: [3] Train - EpochT: 0.1 min, BatchT: 0.161s, DataT: 0.110s, Loss: 0.5232
+Epoch: [3] Val - EpochT: 0.1 min, Loss: 0.2222
+Global IOU: 0.6949
+Epoch: [4] Train - EpochT: 0.1 min, BatchT: 0.161s, DataT: 0.110s, Loss: 0.5005
+Epoch: [4] Val - EpochT: 0.1 min, Loss: 0.2007
+Global IOU: 0.7111
+Epoch: [5] Train - EpochT: 0.1 min, BatchT: 0.163s, DataT: 0.114s, Loss: 0.4907
+Epoch: [5] Val - EpochT: 0.1 min, Loss: 0.2303
+Global IOU: 0.6353
+Epoch: [6] Train - EpochT: 0.1 min, BatchT: 0.164s, DataT: 0.115s, Loss: 0.4753
+Epoch: [6] Val - EpochT: 0.2 min, Loss: 0.2094
+Global IOU: 0.6827
+Epoch: [7] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.116s, Loss: 0.4677
+Epoch: [7] Val - EpochT: 0.2 min, Loss: 0.2409
+Global IOU: 0.6547
+Epoch: [8] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.114s, Loss: 0.4990
+Epoch: [8] Val - EpochT: 0.2 min, Loss: 0.2087
+Global IOU: 0.7041
+Epoch: [9] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.111s, Loss: 0.4511
+Epoch: [9] Val - EpochT: 0.2 min, Loss: 0.1964
+Global IOU: 0.7051
+Epoch: [10] Train - EpochT: 0.1 min, BatchT: 0.171s, DataT: 0.120s, Loss: 0.4618
+Epoch: [10] Val - EpochT: 0.2 min, Loss: 0.2315
+Global IOU: 0.6409
+Epoch: [11] Train - EpochT: 0.1 min, BatchT: 0.164s, DataT: 0.108s, Loss: 0.4846
+Epoch: [11] Val - EpochT: 0.2 min, Loss: 0.2476
+Global IOU: 0.6373
+Epoch: [12] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.119s, Loss: 0.4568
+Epoch: [12] Val - EpochT: 0.2 min, Loss: 0.2041
+Global IOU: 0.6889
+Epoch: [13] Train - EpochT: 0.1 min, BatchT: 0.160s, DataT: 0.110s, Loss: 0.4350
+Epoch: [13] Val - EpochT: 0.1 min, Loss: 0.2200
+Global IOU: 0.6629
+Epoch: [14] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.116s, Loss: 0.4773
+Epoch: [14] Val - EpochT: 0.2 min, Loss: 0.1933
+Global IOU: 0.7092
+Epoch: [15] Train - EpochT: 0.1 min, BatchT: 0.171s, DataT: 0.122s, Loss: 0.4828
+Epoch: [15] Val - EpochT: 0.2 min, Loss: 0.1867
+Global IOU: 0.7216
+Epoch: [16] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.115s, Loss: 0.4706
+Epoch: [16] Val - EpochT: 0.2 min, Loss: 0.2020
+Global IOU: 0.7006
+Epoch: [17] Train - EpochT: 0.1 min, BatchT: 0.161s, DataT: 0.110s, Loss: 0.4507
+Epoch: [17] Val - EpochT: 0.1 min, Loss: 0.2163
+Global IOU: 0.7046
+Epoch: [18] Train - EpochT: 0.1 min, BatchT: 0.170s, DataT: 0.118s, Loss: 0.4572
+Epoch: [18] Val - EpochT: 0.2 min, Loss: 0.1942
+Global IOU: 0.7161
+Epoch 00008: reducing learning rate of group 0 to 5.0000e-05.
+Epoch: [19] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.115s, Loss: 0.4315
+Epoch: [19] Val - EpochT: 0.2 min, Loss: 0.1808
+Global IOU: 0.7290
+Epoch: [20] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.112s, Loss: 0.4306
+Epoch: [20] Val - EpochT: 0.2 min, Loss: 0.1847
+Global IOU: 0.7256
+Epoch: [21] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.117s, Loss: 0.4366
+Epoch: [21] Val - EpochT: 0.2 min, Loss: 0.1825
+Global IOU: 0.7296
+Epoch: [22] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.115s, Loss: 0.4195
+Epoch: [22] Val - EpochT: 0.2 min, Loss: 0.1800
+Global IOU: 0.7267
+Epoch: [23] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.117s, Loss: 0.4386
+Epoch: [23] Val - EpochT: 0.2 min, Loss: 0.1727
+Global IOU: 0.7358
+Epoch: [24] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.118s, Loss: 0.4395
+Epoch: [24] Val - EpochT: 0.2 min, Loss: 0.1812
+Global IOU: 0.7234
+Epoch: [25] Train - EpochT: 0.1 min, BatchT: 0.172s, DataT: 0.116s, Loss: 0.3951
+Epoch: [25] Val - EpochT: 0.2 min, Loss: 0.1900
+Global IOU: 0.7150
+Epoch 00015: reducing learning rate of group 0 to 2.5000e-05.
+Epoch: [26] Train - EpochT: 0.1 min, BatchT: 0.164s, DataT: 0.108s, Loss: 0.4527
+Epoch: [26] Val - EpochT: 0.2 min, Loss: 0.1853
+Global IOU: 0.7231
+Epoch: [27] Train - EpochT: 0.1 min, BatchT: 0.163s, DataT: 0.112s, Loss: 0.4114
+Epoch: [27] Val - EpochT: 0.1 min, Loss: 0.1714
+Global IOU: 0.7413
+Epoch: [28] Train - EpochT: 0.1 min, BatchT: 0.162s, DataT: 0.112s, Loss: 0.3989
+Epoch: [28] Val - EpochT: 0.1 min, Loss: 0.1765
+Global IOU: 0.7310
+Epoch: [29] Train - EpochT: 0.1 min, BatchT: 0.168s, DataT: 0.119s, Loss: 0.4058
+Epoch: [29] Val - EpochT: 0.2 min, Loss: 0.1706
+Global IOU: 0.7348
+Epoch: [30] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.117s, Loss: 0.4164
+Epoch: [30] Val - EpochT: 0.2 min, Loss: 0.1752
+Global IOU: 0.7275
+Epoch: [31] Train - EpochT: 0.1 min, BatchT: 0.163s, DataT: 0.110s, Loss: 0.4324
+Epoch: [31] Val - EpochT: 0.1 min, Loss: 0.1677
+Global IOU: 0.7389
+Epoch: [32] Train - EpochT: 0.1 min, BatchT: 0.168s, DataT: 0.116s, Loss: 0.4136
+Epoch: [32] Val - EpochT: 0.2 min, Loss: 0.1627
+Global IOU: 0.7496
+Epoch 00022: reducing learning rate of group 0 to 1.2500e-05.
+Epoch: [33] Train - EpochT: 0.1 min, BatchT: 0.168s, DataT: 0.113s, Loss: 0.4297
+Epoch: [33] Val - EpochT: 0.2 min, Loss: 0.1640
+Global IOU: 0.7448
+Epoch: [34] Train - EpochT: 0.1 min, BatchT: 0.162s, DataT: 0.111s, Loss: 0.4283
+Epoch: [34] Val - EpochT: 0.1 min, Loss: 0.1694
+Global IOU: 0.7422
+Epoch: [35] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.114s, Loss: 0.4360
+Epoch: [35] Val - EpochT: 0.2 min, Loss: 0.1631
+Global IOU: 0.7458
+Epoch: [36] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.114s, Loss: 0.4061
+Epoch: [36] Val - EpochT: 0.2 min, Loss: 0.1623
+Global IOU: 0.7457
+Epoch: [37] Train - EpochT: 0.1 min, BatchT: 0.168s, DataT: 0.118s, Loss: 0.4119
+Epoch: [37] Val - EpochT: 0.2 min, Loss: 0.1668
+Global IOU: 0.7423
+Epoch: [38] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.113s, Loss: 0.4134
+Epoch: [38] Val - EpochT: 0.2 min, Loss: 0.1613
+Global IOU: 0.7528
+Epoch: [39] Train - EpochT: 0.1 min, BatchT: 0.171s, DataT: 0.117s, Loss: 0.4180
+Epoch: [39] Val - EpochT: 0.2 min, Loss: 0.1628
+Global IOU: 0.7482
+Epoch 00029: reducing learning rate of group 0 to 6.2500e-06.
+Epoch: [40] Train - EpochT: 0.1 min, BatchT: 0.174s, DataT: 0.123s, Loss: 0.4099
+Epoch: [40] Val - EpochT: 0.2 min, Loss: 0.1639
+Global IOU: 0.7440
+Epoch: [41] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.120s, Loss: 0.4161
+Epoch: [41] Val - EpochT: 0.2 min, Loss: 0.1646
+Global IOU: 0.7439
+Epoch: [42] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.117s, Loss: 0.4236
+Epoch: [42] Val - EpochT: 0.2 min, Loss: 0.1680
+Global IOU: 0.7428
+Epoch: [43] Train - EpochT: 0.1 min, BatchT: 0.164s, DataT: 0.109s, Loss: 0.4115
+Epoch: [43] Val - EpochT: 0.2 min, Loss: 0.1617
+Global IOU: 0.7506
+Epoch: [44] Train - EpochT: 0.1 min, BatchT: 0.163s, DataT: 0.112s, Loss: 0.4132
+Epoch: [44] Val - EpochT: 0.2 min, Loss: 0.1703
+Global IOU: 0.7420
+Epoch: [45] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.116s, Loss: 0.4231
+Epoch: [45] Val - EpochT: 0.2 min, Loss: 0.1668
+Global IOU: 0.7457
+Epoch: [46] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.113s, Loss: 0.4215
+Epoch: [46] Val - EpochT: 0.2 min, Loss: 0.1641
+Global IOU: 0.7472
+Epoch 00036: reducing learning rate of group 0 to 3.1250e-06.
+Epoch: [47] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.113s, Loss: 0.4142
+Epoch: [47] Val - EpochT: 0.2 min, Loss: 0.1611
+Global IOU: 0.7503
+Epoch: [48] Train - EpochT: 0.1 min, BatchT: 0.172s, DataT: 0.117s, Loss: 0.4281
+Epoch: [48] Val - EpochT: 0.2 min, Loss: 0.1637
+Global IOU: 0.7469
+Epoch: [49] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.119s, Loss: 0.4211
+Epoch: [49] Val - EpochT: 0.2 min, Loss: 0.1607
+Global IOU: 0.7507
+Epoch: [50] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.117s, Loss: 0.4303
+Epoch: [50] Val - EpochT: 0.2 min, Loss: 0.1641
+Global IOU: 0.7436
+Epoch: [51] Train - EpochT: 0.1 min, BatchT: 0.171s, DataT: 0.121s, Loss: 0.4130
+Epoch: [51] Val - EpochT: 0.2 min, Loss: 0.1640
+Global IOU: 0.7464
+Epoch: [52] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.114s, Loss: 0.4072
+Epoch: [52] Val - EpochT: 0.2 min, Loss: 0.1653
+Global IOU: 0.7427
+Epoch: [53] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.118s, Loss: 0.4181
+Epoch: [53] Val - EpochT: 0.2 min, Loss: 0.1617
+Global IOU: 0.7525
+Epoch 00043: reducing learning rate of group 0 to 1.5625e-06.
+Epoch: [54] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.117s, Loss: 0.3921
+Epoch: [54] Val - EpochT: 0.2 min, Loss: 0.1615
+Global IOU: 0.7510
+Epoch: [55] Train - EpochT: 0.1 min, BatchT: 0.173s, DataT: 0.121s, Loss: 0.3920
+Epoch: [55] Val - EpochT: 0.2 min, Loss: 0.1636
+Global IOU: 0.7512
+Epoch: [56] Train - EpochT: 0.1 min, BatchT: 0.169s, DataT: 0.117s, Loss: 0.4121
+Epoch: [56] Val - EpochT: 0.2 min, Loss: 0.1644
+Global IOU: 0.7490
+Epoch: [57] Train - EpochT: 0.1 min, BatchT: 0.170s, DataT: 0.120s, Loss: 0.4113
+Epoch: [57] Val - EpochT: 0.2 min, Loss: 0.1663
+Global IOU: 0.7419
+Epoch: [58] Train - EpochT: 0.1 min, BatchT: 0.179s, DataT: 0.130s, Loss: 0.3978
+Epoch: [58] Val - EpochT: 0.2 min, Loss: 0.1652
+Global IOU: 0.7439
+Epoch: [59] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.110s, Loss: 0.4271
+Epoch: [59] Val - EpochT: 0.2 min, Loss: 0.1638
+Global IOU: 0.7455
+Epoch: [60] Train - EpochT: 0.1 min, BatchT: 0.173s, DataT: 0.122s, Loss: 0.4429
+Epoch: [60] Val - EpochT: 0.2 min, Loss: 0.1624
+Global IOU: 0.7477
+Epoch 00050: reducing learning rate of group 0 to 7.8125e-07.
+Epoch: [61] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.113s, Loss: 0.4029
+Epoch: [61] Val - EpochT: 0.2 min, Loss: 0.1663
+Global IOU: 0.7439
+Epoch: [62] Train - EpochT: 0.1 min, BatchT: 0.170s, DataT: 0.121s, Loss: 0.3967
+Epoch: [62] Val - EpochT: 0.2 min, Loss: 0.1640
+Global IOU: 0.7435
+Epoch: [63] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.114s, Loss: 0.4205
+Epoch: [63] Val - EpochT: 0.2 min, Loss: 0.1614
+Global IOU: 0.7484
+Epoch: [64] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.112s, Loss: 0.4055
+Epoch: [64] Val - EpochT: 0.2 min, Loss: 0.1661
+Global IOU: 0.7458
+Epoch: [65] Train - EpochT: 0.1 min, BatchT: 0.165s, DataT: 0.112s, Loss: 0.3994
+Epoch: [65] Val - EpochT: 0.2 min, Loss: 0.1628
+Global IOU: 0.7469
+Epoch: [66] Train - EpochT: 0.1 min, BatchT: 0.167s, DataT: 0.114s, Loss: 0.3764
+Epoch: [66] Val - EpochT: 0.2 min, Loss: 0.1645
+Global IOU: 0.7460
+Epoch: [67] Train - EpochT: 0.1 min, BatchT: 0.168s, DataT: 0.113s, Loss: 0.4187
+Epoch: [67] Val - EpochT: 0.2 min, Loss: 0.1621
+Global IOU: 0.7464
+Epoch 00057: reducing learning rate of group 0 to 3.9063e-07.
+Epoch: [68] Train - EpochT: 0.1 min, BatchT: 0.166s, DataT: 0.112s, Loss: 0.4113
+Epoch: [68] Val - EpochT: 0.2 min, Loss: 0.1619
+Global IOU: 0.7474
+Epoch: [69] Train - EpochT: 0.1 min, BatchT: 0.172s, DataT: 0.121s, Loss: 0.4261
+Epoch: [69] Val - EpochT: 0.2 min, Loss: 0.1635
+Global IOU: 0.7470
+Early Stopping
+-Best IOU: 0.7528443741357612 at Epoch: 38
+----------------------------------------
+Training Completed:
+Total Training Time: 11.805093745390574 minutes

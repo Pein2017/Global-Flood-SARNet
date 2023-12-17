@@ -1,8 +1,16 @@
 # 忽略所有文件
 *
 
-# 但不忽略 .py, .ipynb, .txt, 和 .gitignore 文件
+# 不忽略目录（允许检查目录）
+!*/
+
+# 不忽略 .py, .ipynb 文件和 .gitignore 文件
 !*.py
 !*.ipynb
-!*.txt
 !.gitignore
+
+# 忽略所有 .txt 文件
+*.txt
+
+# 但不忽略 /home/HW/Pein/Floodwater/SMP/output 下的 .txt 文件
+!/home/HW/Pein/Floodwater/SMP/output/*.txt

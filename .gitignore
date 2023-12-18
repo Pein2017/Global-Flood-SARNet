@@ -13,4 +13,5 @@
 *.txt
 
 # 但不忽略 /home/HW/Pein/Floodwater/SMP/output 下的 .txt 文件
-!/home/HW/Pein/Floodwater/SMP/output/*.txt
+!SMP/output/*.txt
+

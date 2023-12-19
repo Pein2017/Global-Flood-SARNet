@@ -3,6 +3,7 @@ from utils import AverageMeter, print_epoch_stats, to_device, save_model
 import time
 import torch
 
+
 # flake8: noqa: E501
 def train_epochs(model,
                  train_loader,
@@ -19,17 +20,19 @@ def train_epochs(model,
                  EPS,
                  start_epoch=1,
                  best_metric=0,
-                 best_metric_epoch=0):
-    
+                 best_metric_epoch=0,
+                 binary_threshold=0.5):
+
     early_stop_counter, best_val_early_stopping_metric = 0, 0
-    start_time = time.time() # 全局的开始时间
+    start_time = time.time()  # 全局的开始时间
     best_model_state = None
     for curr_epoch_num in range(start_epoch, N_EPOCHS + 1):
         epoch_start_time = time.time()  # 记录当前 Epoch 的开始时间
 
         # 训练阶段
         model.train()
-        train_loss, batch_time, data_time = AverageMeter(), AverageMeter(), AverageMeter()
+        train_loss, batch_time, data_time = AverageMeter(), AverageMeter(
+        ), AverageMeter()
         end = time.time()
 
         for data in train_loader:
@@ -44,7 +47,8 @@ def train_epochs(model,
             batch_time.update(time.time() - end)
             end = time.time()
 
-        print_epoch_stats('Train', curr_epoch_num, train_loss, batch_time, data_time, epoch_start_time)
+        print_epoch_stats('Train', curr_epoch_num, train_loss, batch_time,
+                          data_time, epoch_start_time)
 
         # 验证阶段
         model.eval()
@@ -55,17 +59,17 @@ def train_epochs(model,
                 preds = model(data["image"])
                 loss = loss_func(preds, data["mask"].long())
                 val_loss.update(loss.item(), data["image"].size(0))
-                preds_binary = (torch.softmax(preds, dim=1)[:, 1] > 0.5).long()
+                preds_binary = (torch.softmax(preds, dim=1)[:, 1]
+                                > binary_threshold).long()
                 tp, fp, fn = tp_fp_fn(preds_binary, data["mask"])
                 tps += tp
                 fps += fp
                 fns += fn
 
         iou_global = tps / (tps + fps + fns + EPS)
-        print_epoch_stats('Val', curr_epoch_num, val_loss, batch_time, data_time, epoch_start_time, iou_global)
+        print_epoch_stats('Val', curr_epoch_num, val_loss, batch_time,
+                          data_time, epoch_start_time, iou_global)
 
-        
-        
         # 保存Scheduler和Model
         if curr_epoch_num > EARLY_STOP_THRESHOLD:
             scheduler.step(iou_global)
@@ -102,3 +106,59 @@ def train_epochs(model,
         "total_epochs": curr_epoch_num,
         "training_time": time.time() - start_time
     }
+
+
+def adjust_threshold_and_evaluate(model, val_loader, test_loader,
+                                  threshold_range, DEVICE, EPS):
+    model.eval()
+    best_threshold, best_threshold_iou = 0, 0
+
+    # 微调阈值 - 使用验证集
+    with torch.no_grad():
+        for threshold in threshold_range:
+            tps, fps, fns = 0, 0, 0
+            for data in val_loader:
+                data = to_device(data, DEVICE)
+                preds = model(data["image"])
+                preds_binary = (torch.softmax(preds, dim=1)[:, 1]
+                                > threshold).long()
+                tp, fp, fn = tp_fp_fn(preds_binary, data["mask"])
+                tps += tp
+                fps += fp
+                fns += fn
+
+            iou = tps / (tps + fps + fns + EPS)
+            if iou > best_threshold_iou:
+                best_threshold, best_threshold_iou = threshold, iou
+
+    print(
+        f"Best Threshold on Validation Set: {best_threshold}, IOU: {best_threshold_iou}"
+    )
+
+    # 使用测试集计算IOU
+    tps, fps, fns = 0, 0, 0
+    prob_tps, prob_fps, prob_fns = 0, 0, 0
+    with torch.no_grad():
+        for data in test_loader:
+            data = to_device(data, DEVICE)
+            preds = model(data["image"])
+            preds_binary = (torch.softmax(preds, dim=1)[:, 1]
+                            > best_threshold).long()
+            tp, fp, fn = tp_fp_fn(preds_binary, data["mask"])
+            tps += tp
+            fps += fp
+            fns += fn
+
+            # 计算基于概率的IOU（假设使用0.5作为概率阈值）
+            prob_preds_binary = (torch.softmax(preds, dim=1)[:, 1]
+                                 > 0.5).long()
+            prob_tp, prob_fp, prob_fn = tp_fp_fn(prob_preds_binary,
+                                                 data["mask"])
+            prob_tps += prob_tp
+            prob_fps += prob_fp
+            prob_fns += prob_fn
+
+    iou_test = tps / (tps + fps + fns + EPS)
+    prob_iou_test = prob_tps / (prob_tps + prob_fps + prob_fns + EPS)
+    print(f"Binary Threshold IOU on Test Set: {iou_test}")
+    print(f"Probability IOU on Test Set: {prob_iou_test}")

@@ -13,7 +13,7 @@ from utils import (AverageMeter, print_epoch_stats, save_model, to_device,
                    download_smp_model, initialize_training, load_model)
 from data_processing import Sentinel1_Dataset
 from loss_metrics import XEDiceLoss, tp_fp_fn
-from train import train_epochs, adjust_threshold_and_evaluate
+from train import train_epochs, adjust_threshold_and_evaluate, soft_iou
 from model import FloodwaterSegmentationModel
 from config import *
 # flake8: noqa
@@ -132,51 +132,6 @@ train_result = train_epochs(model, train_loader, val_loader, optimizer,
                             N_EPOCHS, EARLY_STOP_THRESHOLD,
                             EARLY_STOP_PATIENCE, DEVICE, EPS, start_epoch,
                             best_metric, best_metric_epoch)
-
-# # 模型初始化
-# loss_func = XEDiceLoss().to(DEVICE)
-# model = FloodwaterSegmentationModel(**MODEL_PARAMS).to(DEVICE)
-# # optimizer = optim.Adam(model.parameters(),
-# #                        lr=LEARNING_RATE if TRAIN_MODE == 'new' else 1e-1)
-
-# if TRAIN_MODE == 'new':
-#     optimizer = optim.Adam(model.parameters(),
-#                        lr=LEARNING_RATE )
-# elif TRAIN_MODE == 'continue':
-#     optimizer = optim.Adam(model.parameters())
-# else:
-#     raise ValueError(
-#         "TRAIN_MODE must be one of 'new' or 'continue'.")
-
-# if TRAIN_MODE == 'continue':
-#     # 从checkpoint加载模型和优化器状态
-#     model, optimizer, best_metric, best_metric_epoch = load_model(
-#         CHECKPOINT_PATH, model, optimizer)
-#     print(
-#         f"previous learning rate: {optimizer.param_groups[0]['lr']} , best IOU: {best_metric} at epoch: {best_metric_epoch}"
-#     )
-
-#     # optional：修改学习率
-#     optimizer.param_groups[0]['lr'] = 0.5 * optimizer.param_groups[0]['lr']
-# elif TRAIN_MODE == 'tuning':
-#     # 从头开始训练，初始化训练指标
-#     best_metric, best_metric_epoch = 0, 0
-# else:
-#     raise ValueError(
-#         "TRAIN_MODE must be one of 'new', 'continue' or 'tuning'.")
-
-# # 初始化学习率调度器
-# scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer,
-#                                                  mode="min",
-#                                                  factor=0.1,
-#                                                  patience=PATIENCE,
-#                                                  verbose=True)
-
-# # 开始训练
-# train_result = train_epochs(model, train_loader, val_loader, optimizer,
-#                             loss_func, EXPERIMENT_NAME, LOG_PATH, scheduler,
-#                             N_EPOCHS, EARLY_STOP_THRESHOLD,
-#                             EARLY_STOP_PATIENCE, DEVICE, EPS)
 
 # 打印或处理返回的信息
 print('--' * 20)

@@ -108,7 +108,20 @@ def train_epochs(model,
     }
 
 
-def adjust_threshold_and_evaluate(model, val_loader, test_loader,
+def soft_iou(preds, targets, EPS=1e-6):
+    # 预测的概率分布 (使用softmax获得每个像素的概率)
+    preds_probs = torch.softmax(preds, dim=1)[:, 1]  # 取第二类（假设是水体）的概率
+
+    # 计算交集和并集
+    intersection = torch.sum(preds_probs * targets)
+    union = torch.sum(preds_probs) + torch.sum(targets) - intersection
+
+    # 计算IOU
+    iou = (intersection + EPS) / (union + EPS)
+    return iou.item()
+
+
+def adjust_threshold_and_evaluate(model, train_loader, val_loader, test_loader,
                                   threshold_range, DEVICE, EPS):
     model.eval()
     best_threshold, best_threshold_iou = 0, 0
@@ -117,6 +130,9 @@ def adjust_threshold_and_evaluate(model, val_loader, test_loader,
     with torch.no_grad():
         for threshold in threshold_range:
             tps, fps, fns = 0, 0, 0
+            prob_iou_total = 0
+            sample_count = 0
+
             for data in val_loader:
                 data = to_device(data, DEVICE)
                 preds = model(data["image"])
@@ -132,33 +148,34 @@ def adjust_threshold_and_evaluate(model, val_loader, test_loader,
                 best_threshold, best_threshold_iou = threshold, iou
 
     print(
-        f"Best Threshold on Validation Set: {best_threshold}, IOU: {best_threshold_iou}"
+        f"Best Threshold on Validation Set: {best_threshold:.4f}, IOU: {best_threshold_iou:.4f}"
     )
 
-    # 使用测试集计算IOU
-    tps, fps, fns = 0, 0, 0
-    prob_tps, prob_fps, prob_fns = 0, 0, 0
-    with torch.no_grad():
-        for data in test_loader:
-            data = to_device(data, DEVICE)
-            preds = model(data["image"])
-            preds_binary = (torch.softmax(preds, dim=1)[:, 1]
-                            > best_threshold).long()
-            tp, fp, fn = tp_fp_fn(preds_binary, data["mask"])
-            tps += tp
-            fps += fp
-            fns += fn
+    # 计算并打印每个数据集上的IOU
+    for loader, name in zip([train_loader, val_loader, test_loader],
+                            ["Train", "Validation", "Test"]):
+        tps, fps, fns = 0, 0, 0
+        prob_tps, prob_fps, prob_fns = 0, 0, 0
+        with torch.no_grad():
+            for data in loader:
+                data = to_device(data, DEVICE)
+                preds = model(data["image"])
 
-            # 计算基于概率的IOU（假设使用0.5作为概率阈值）
-            prob_preds_binary = (torch.softmax(preds, dim=1)[:, 1]
-                                 > 0.5).long()
-            prob_tp, prob_fp, prob_fn = tp_fp_fn(prob_preds_binary,
-                                                 data["mask"])
-            prob_tps += prob_tp
-            prob_fps += prob_fp
-            prob_fns += prob_fn
+                # 基于最佳阈值的二分类后的IOU
+                preds_binary = (torch.softmax(preds, dim=1)[:, 1]
+                                > best_threshold).long()
+                tp, fp, fn = tp_fp_fn(preds_binary, data["mask"])
+                tps += tp
+                fps += fp
+                fns += fn
 
-    iou_test = tps / (tps + fps + fns + EPS)
-    prob_iou_test = prob_tps / (prob_tps + prob_fps + prob_fns + EPS)
-    print(f"Binary Threshold IOU on Test Set: {iou_test}")
-    print(f"Probability IOU on Test Set: {prob_iou_test}")
+                # 基于概率的IOU
+                prob_iou = soft_iou(preds, data["mask"].float())  # 确保mask是浮点型
+                prob_iou_total += prob_iou
+                sample_count += 1
+
+        iou = tps / (tps + fps + fns + EPS)
+        prob_iou_avg = prob_iou_total / sample_count  # 计算平均IOU
+        print(
+            f"{name} Set - Binary Threshold IOU: {iou:.4f}, Probability IOU: {prob_iou:.4f}"
+        )
